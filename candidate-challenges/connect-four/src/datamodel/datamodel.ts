@@ -88,7 +88,11 @@ export class ConnectFourBoardGame {
     }
 
     //Check diagonally
-
+    const valuesForDiagonals = [];
+    const array = this.getBoardRepresentation();
+    for (let i = 0; i < 6; i++) {
+      for (let j = 0; j < 7; j++) {}
+    }
     return false;
   }
 
