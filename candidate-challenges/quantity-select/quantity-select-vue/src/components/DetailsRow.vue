@@ -1,5 +1,9 @@
 <template>
-  <div class="container" :class="selected ? 'selected' : ''">
+  <div
+    @click="$emit('click')"
+    class="container"
+    :class="selected ? 'selected' : ''"
+  >
     <div class="qta">{{ qta }}</div>
     <div class="unitPrice"><pounds-symbol />{{ unitPrice }}</div>
     <div class="total"><pounds-symbol />{{ total }}</div>
@@ -7,7 +11,7 @@
     <div v-if="selected" class="selected">
       <chip message="Your selection" />
     </div>
-    <div v-else class="difference">
+    <div v-else-if="differenceFromSelected" class="difference">
       <p>only</p>
       <span><pounds-symbol />{{ differenceFromSelected }}</span>
       <p>extra</p>
@@ -35,6 +39,8 @@ export default {
   padding: 5px 2px;
   max-width: 500px;
   border: 1px solid black;
+  border-left: 0;
+  border-right: 0;
   height: 45px;
 }
 
