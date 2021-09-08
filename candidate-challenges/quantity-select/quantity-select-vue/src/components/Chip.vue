@@ -15,5 +15,7 @@ export default {
   font-size: 10px;
   color: white;
   padding: 5px 10px;
+  max-width: 80px;
+  max-height: 10px;
 }
 </style>

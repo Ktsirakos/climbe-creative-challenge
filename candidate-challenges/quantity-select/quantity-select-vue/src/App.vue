@@ -3,14 +3,19 @@
     <ui-container>
       <top-row @showcustom="(state) => changeStateCustomRow(state)" />
       <header-row />
-      <custom-row v-if="showCustomRow" />
-      <p v-if="showCustomRow" class="upgradeOptionTextWhenCustom">
+      <custom-row
+        v-if="showCustomRow"
+        :quantity="100"
+        :total="17.01"
+        :unitPrice="0.17"
+      />
+      <!-- <p v-if="showCustomRow" class="upgradeOptionTextWhenCustom">
         Upgrade from only
         <pounds-symbol />{{
           this.obj[this.currentIndex + 1].differenceFromSelected
         }}
         extra
-      </p>
+      </p> -->
       <rows-wrapper>
         <details-row
           v-for="(entry, index) of objToShow"
@@ -35,7 +40,7 @@ import RowsWrapper from "./components/RowsWrapper.vue";
 import UiContainer from "./components/UIContainer.vue";
 import TopRow from "./components/TopRow.vue";
 import CustomRow from "./components/CustomRow.vue";
-import PoundsSymbol from "./components/PoundsSymbol.vue";
+// import PoundsSymbol from "./components/PoundsSymbol.vue";
 export default {
   name: "App",
   components: {
@@ -45,7 +50,7 @@ export default {
     UiContainer,
     TopRow,
     CustomRow,
-    PoundsSymbol,
+    // PoundsSymbol,
   },
   computed: {
     objToShow() {
