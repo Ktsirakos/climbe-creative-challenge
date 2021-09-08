@@ -1,17 +1,30 @@
 <template>
   <div id="app">
-    <header-row />
-    <rows-wrapper>
-      <details-row
-        v-for="(entry, index) of objToShow"
-        @click="() => rowClicked(entry, index)"
-        :key="entry.qta"
-        v-bind="entry"
-      />
-      <div class="showMoreRow">
-        <p>Show {{ this.obj.length - this.numberOfElements }} quantities</p>
-      </div>
-    </rows-wrapper>
+    <ui-container>
+      <top-row @showcustom="(state) => changeStateCustomRow(state)" />
+      <header-row />
+      <custom-row v-if="showCustomRow" />
+      <p v-if="showCustomRow" class="upgradeOptionTextWhenCustom">
+        Upgrade from only
+        <pounds-symbol />{{
+          this.obj[this.currentIndex + 1].differenceFromSelected
+        }}
+        extra
+      </p>
+      <rows-wrapper>
+        <details-row
+          v-for="(entry, index) of objToShow"
+          @click="() => rowClicked(entry, index)"
+          :key="entry.qta"
+          v-bind="entry"
+        />
+        <div v-if="!showAllElements" @click="showAll" class="showMoreRow">
+          <p>
+            Show {{ this.obj.length - this.numberOfElements }} more quantities
+          </p>
+        </div>
+      </rows-wrapper>
+    </ui-container>
   </div>
 </template>
 
@@ -19,12 +32,20 @@
 import DetailsRow from "./components/DetailsRow.vue";
 import HeaderRow from "./components/HeaderRow.vue";
 import RowsWrapper from "./components/RowsWrapper.vue";
+import UiContainer from "./components/UIContainer.vue";
+import TopRow from "./components/TopRow.vue";
+import CustomRow from "./components/CustomRow.vue";
+import PoundsSymbol from "./components/PoundsSymbol.vue";
 export default {
   name: "App",
   components: {
     DetailsRow,
     HeaderRow,
     RowsWrapper,
+    UiContainer,
+    TopRow,
+    CustomRow,
+    PoundsSymbol,
   },
   computed: {
     objToShow() {
@@ -33,6 +54,7 @@ export default {
   },
   data() {
     return {
+      showCustomRow: false,
       numberOfElements: 4,
       currentEntry: undefined,
       obj: [
@@ -102,6 +124,20 @@ export default {
         }
       });
     },
+    showAll() {
+      this.showAllElements = true;
+      this.numberOfElements = this.obj.length;
+    },
+    changeStateCustomRow(state) {
+      this.showCustomRow = state;
+      if (state) {
+        this.numberOfElements = 4;
+        this.currentEntry.selected = false;
+        this.obj.forEach((elem) => (elem.differenceFromSelected = undefined));
+        this.currentEntry = undefined;
+        this.showAllElements = false;
+      }
+    },
   },
 };
 </script>
@@ -121,10 +157,17 @@ export default {
   display: flex;
   flex-direction: row;
   align-content: center;
+  background: white;
 }
 
 .showMoreRow p {
   color: #3797a9;
   margin: auto;
+}
+
+.upgradeOptionTextWhenCustom {
+  font-size: 10px;
+  margin: 3px;
+  text-align: start;
 }
 </style>

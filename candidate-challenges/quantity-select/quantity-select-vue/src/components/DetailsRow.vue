@@ -38,7 +38,7 @@ export default {
   grid-template-columns: 25% 25% 25% 25%;
   padding: 5px 2px;
   max-width: 500px;
-  border: 1px solid black;
+  border: 0.5px solid #ACB0B3;
   border-left: 0;
   border-right: 0;
   height: 45px;
