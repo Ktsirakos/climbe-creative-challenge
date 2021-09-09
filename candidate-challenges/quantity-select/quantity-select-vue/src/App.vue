@@ -1,13 +1,17 @@
 <template>
   <div id="app">
     <ui-container>
-      <top-row @showcustom="(state) => changeStateCustomRow(state)" />
+      <top-row
+        :checked="showCustomRow"
+        @showcustom="(state) => changeStateCustomRow(state)"
+      />
       <header-row />
       <custom-row
         v-if="showCustomRow"
-        :quantity="100"
-        :total="17.01"
-        :unitPrice="0.17"
+        @updated="(e) => updatedInput(e)"
+        :quantity="currentEntry.qta"
+        :total="currentEntry.total"
+        :unitPrice="currentEntry.unitPrice"
       />
       <!-- <p v-if="showCustomRow" class="upgradeOptionTextWhenCustom">
         Upgrade from only
@@ -52,13 +56,14 @@ export default {
     CustomRow,
     // PoundsSymbol,
   },
-  computed: {
-    objToShow() {
-      return this.obj.filter((_, index) => index < this.numberOfElements);
-    },
+  mounted() {
+    this.objToShow = this.obj.filter(
+      (_, index) => index < this.numberOfElements
+    );
   },
   data() {
     return {
+      objToShow: [],
       showCustomRow: false,
       numberOfElements: 4,
       currentEntry: undefined,
@@ -71,35 +76,56 @@ export default {
           differenceFromSelected: undefined,
         },
         {
-          qta: 100,
+          qta: 200,
           unitPrice: 0.17,
           total: 17.01,
           selected: false,
           differenceFromSelected: undefined,
         },
         {
-          qta: 100,
+          qta: 300,
           unitPrice: 0.17,
           total: 17.01,
           selected: false,
           differenceFromSelected: undefined,
         },
         {
-          qta: 100,
+          qta: 400,
           unitPrice: 0.17,
           total: 17.01,
           selected: false,
           differenceFromSelected: undefined,
         },
         {
-          qta: 100,
+          qta: 500,
           unitPrice: 0.17,
           total: 17.01,
           selected: false,
           differenceFromSelected: undefined,
         },
         {
-          qta: 100,
+          qta: 600,
+          unitPrice: 0.17,
+          total: 17.01,
+          selected: false,
+          differenceFromSelected: undefined,
+        },
+        {
+          qta: 300,
+          unitPrice: 0.17,
+          total: 17.01,
+          selected: false,
+          differenceFromSelected: undefined,
+        },
+        {
+          qta: 400,
+          unitPrice: 0.17,
+          total: 17.01,
+          selected: false,
+          differenceFromSelected: undefined,
+        },
+        {
+          qta: 500,
           unitPrice: 0.17,
           total: 17.01,
           selected: false,
@@ -110,6 +136,8 @@ export default {
   },
   methods: {
     rowClicked(entry, index) {
+      this.showCustomRow = false;
+
       if (this.currentEntry) {
         this.currentEntry.selected = false;
       }
@@ -117,6 +145,10 @@ export default {
       entry.selected = true;
       this.currentEntry = entry;
       this.currentIndex = index;
+
+      if (this.currentIndex === this.numberOfElements - 1) {
+        this.show2More();
+      }
 
       this.updateDifferences();
     },
@@ -131,16 +163,36 @@ export default {
     },
     showAll() {
       this.showAllElements = true;
-      this.numberOfElements = this.obj.length;
+      this.objToShow = this.obj;
     },
     changeStateCustomRow(state) {
       this.showCustomRow = state;
+
       if (state) {
+        if (this.currentEntry) {
+          this.currentEntry.selected = false;
+        }
+
         this.numberOfElements = 4;
-        this.currentEntry.selected = false;
         this.obj.forEach((elem) => (elem.differenceFromSelected = undefined));
-        this.currentEntry = undefined;
+        this.objToShow = this.obj.filter(
+          (_, index) => index < this.numberOfElements
+        );
+        // this.currentEntry = undefined;
         this.showAllElements = false;
+      }
+    },
+    updatedInput(e) {
+      this.console.log(e);
+    },
+    show2More() {
+      if (this.obj.length <= this.numberOfElements + 2) {
+        this.showAll();
+      } else {
+        this.numberOfElements += 2;
+        this.objToShow = this.obj.filter(
+          (_, index) => index < this.numberOfElements
+        );
       }
     },
   },

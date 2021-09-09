@@ -1,13 +1,17 @@
 <template>
   <div class="checkboxContainer">
     <p>{{ label }}</p>
-    <input @click="(e) => $emit('click', e.target.checked)" type="checkbox" />
+    <input
+      :checked="checked"
+      @click="(e) => $emit('click', e.target.checked)"
+      type="checkbox"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  props: ["label"],
+  props: ["label", "checked"],
 };
 </script>
 
@@ -15,7 +19,7 @@ export default {
 .checkboxContainer {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .checkboxContainer p {

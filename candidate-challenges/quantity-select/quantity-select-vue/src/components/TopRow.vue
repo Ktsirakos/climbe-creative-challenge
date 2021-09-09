@@ -3,6 +3,7 @@
     <p>Quantity</p>
     <checkbox
       @click="(state) => $emit('showcustom', state)"
+      :checked="checked"
       label="Custom Quantity"
     />
   </div>
@@ -11,6 +12,7 @@
 <script>
 import Checkbox from "./Checkbox.vue";
 export default {
+  props: ["checked"],
   components: {
     Checkbox,
   },

@@ -1,6 +1,10 @@
 <template>
   <div class="customRowContainer">
-    <input type="text" v-model="quantityModel" />
+    <input
+      @input="(e) => $emit('updated', e.target.value)"
+      type="number"
+      v-model="quantityModel"
+    />
     <p id="unitPrice"><pounds-symbol />{{ unitPrice }}</p>
     <p id="total"><pounds-symbol />{{ total }}</p>
     <chip id="chip" message="Your selection" />
@@ -16,6 +20,9 @@ export default {
     PoundsSymbol,
   },
   props: ["quantity", "unitPrice", "total"],
+  mounted() {
+    this.quantityModel = this.quantity;
+  },
   data() {
     return {
       quantityModel: 50,
