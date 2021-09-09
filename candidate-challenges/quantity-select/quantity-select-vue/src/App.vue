@@ -44,6 +44,7 @@ import RowsWrapper from "./components/RowsWrapper.vue";
 import UiContainer from "./components/UIContainer.vue";
 import TopRow from "./components/TopRow.vue";
 import CustomRow from "./components/CustomRow.vue";
+import data from "../public/dummyData.json";
 // import PoundsSymbol from "./components/PoundsSymbol.vue";
 export default {
   name: "App",
@@ -67,71 +68,7 @@ export default {
       showCustomRow: false,
       numberOfElements: 4,
       currentEntry: undefined,
-      obj: [
-        {
-          qta: 100,
-          unitPrice: 0.17,
-          total: 17.01,
-          selected: false,
-          differenceFromSelected: undefined,
-        },
-        {
-          qta: 200,
-          unitPrice: 0.17,
-          total: 17.01,
-          selected: false,
-          differenceFromSelected: undefined,
-        },
-        {
-          qta: 300,
-          unitPrice: 0.17,
-          total: 17.01,
-          selected: false,
-          differenceFromSelected: undefined,
-        },
-        {
-          qta: 400,
-          unitPrice: 0.17,
-          total: 17.01,
-          selected: false,
-          differenceFromSelected: undefined,
-        },
-        {
-          qta: 500,
-          unitPrice: 0.17,
-          total: 17.01,
-          selected: false,
-          differenceFromSelected: undefined,
-        },
-        {
-          qta: 600,
-          unitPrice: 0.17,
-          total: 17.01,
-          selected: false,
-          differenceFromSelected: undefined,
-        },
-        {
-          qta: 300,
-          unitPrice: 0.17,
-          total: 17.01,
-          selected: false,
-          differenceFromSelected: undefined,
-        },
-        {
-          qta: 400,
-          unitPrice: 0.17,
-          total: 17.01,
-          selected: false,
-          differenceFromSelected: undefined,
-        },
-        {
-          qta: 500,
-          unitPrice: 0.17,
-          total: 17.01,
-          selected: false,
-          differenceFromSelected: undefined,
-        },
-      ],
+      obj: data,
     };
   },
   methods: {
@@ -167,6 +104,7 @@ export default {
     },
     changeStateCustomRow(state) {
       this.showCustomRow = state;
+      this.showAllElements = false;
 
       if (state) {
         if (this.currentEntry) {
@@ -175,15 +113,13 @@ export default {
 
         this.numberOfElements = 4;
         this.obj.forEach((elem) => (elem.differenceFromSelected = undefined));
-        this.objToShow = this.obj.filter(
-          (_, index) => index < this.numberOfElements
-        );
-        // this.currentEntry = undefined;
-        this.showAllElements = false;
+        this.updatedInput(this.currentEntry.qta);
       }
     },
     updatedInput(e) {
-      this.console.log(e);
+      this.objToShow = this.obj
+        .filter((elem) => elem.qta > e)
+        .filter((_, index) => index < 2);
     },
     show2More() {
       if (this.obj.length <= this.numberOfElements + 2) {

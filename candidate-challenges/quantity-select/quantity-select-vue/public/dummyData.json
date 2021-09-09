@@ -1,0 +1,65 @@
+[
+  {
+    "qta": 100,
+    "unitPrice": 0.17,
+    "total": 17.01,
+    "selected": false,
+    "differenceFromSelected": null
+  },
+  {
+    "qta": 200,
+    "unitPrice": 0.17,
+    "total": 17.01,
+    "selected": false,
+    "differenceFromSelected": null
+  },
+  {
+    "qta": 300,
+    "unitPrice": 0.17,
+    "total": 17.01,
+    "selected": false,
+    "differenceFromSelected": null
+  },
+  {
+    "qta": 400,
+    "unitPrice": 0.17,
+    "total": 17.01,
+    "selected": false,
+    "differenceFromSelected": null
+  },
+  {
+    "qta": 500,
+    "unitPrice": 0.17,
+    "total": 17.01,
+    "selected": false,
+    "differenceFromSelected": null
+  },
+  {
+    "qta": 600,
+    "unitPrice": 0.17,
+    "total": 17.01,
+    "selected": false,
+    "differenceFromSelected": null
+  },
+  {
+    "qta": 700,
+    "unitPrice": 0.17,
+    "total": 17.01,
+    "selected": false,
+    "differenceFromSelected": null
+  },
+  {
+    "qta": 800,
+    "unitPrice": 0.17,
+    "total": 17.01,
+    "selected": false,
+    "differenceFromSelected": null
+  },
+  {
+    "qta": 900,
+    "unitPrice": 0.17,
+    "total": 17.01,
+    "selected": false,
+    "differenceFromSelected": null
+  }
+]
