@@ -58,6 +58,9 @@ export default {
     // PoundsSymbol,
   },
   mounted() {
+    this.obj.forEach(
+      (elem) => (elem.total = Math.floor(elem.qta * elem.unitPrice))
+    );
     this.objToShow = this.obj.filter(
       (_, index) => index < this.numberOfElements
     );
@@ -74,7 +77,6 @@ export default {
   methods: {
     rowClicked(entry, index) {
       this.showCustomRow = false;
-
       if (this.currentEntry) {
         this.currentEntry.selected = false;
       }
@@ -92,7 +94,7 @@ export default {
     updateDifferences() {
       this.obj.forEach((elem, index) => {
         if (index > this.currentIndex) {
-          elem.differenceFromSelected = 0.45;
+          elem.differenceFromSelected = elem.total - this.currentEntry.total;
         } else {
           elem.differenceFromSelected = undefined;
         }
@@ -105,15 +107,22 @@ export default {
     changeStateCustomRow(state) {
       this.showCustomRow = state;
       this.showAllElements = false;
-
+      debugger;
       if (state) {
         if (this.currentEntry) {
           this.currentEntry.selected = false;
+        } else {
+          this.currentEntry = this.obj[0];
         }
 
         this.numberOfElements = 4;
         this.obj.forEach((elem) => (elem.differenceFromSelected = undefined));
         this.updatedInput(this.currentEntry.qta);
+      } else {
+        this.objToShow = this.obj.filter(
+          (_, index) =>
+            index - 2 < this.currentIndex && this.currentIndex < index + 2
+        );
       }
     },
     updatedInput(e) {
